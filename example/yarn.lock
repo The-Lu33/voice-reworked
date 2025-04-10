@@ -1665,7 +1665,7 @@
     prompts "^2.4.2"
     semver "^7.5.2"
 
-"@react-native-voice/voice@file:..":
+"react-native-voice-voice-reworked@file:..":
   version "3.2.4"
   dependencies:
     "@expo/config-plugins" "^9.0.9"

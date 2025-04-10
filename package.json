@@ -1,7 +1,7 @@
 {
   "name": "react-native-voice-voice-reworked",
   "description": "React Native Native Voice library for iOS and Android",
-  "version": "0.1.1",
+  "version": "0.1.16",
   "author": "The Lu",
   "private": false,
   "homepage": "https://github.com/The-Lu33/voice-reworked",
@@ -41,7 +41,9 @@
     "dist",
     "android",
     "ios",
-    "react-native-voice.podspec"
+    "react-native-voice.podspec",
+    "plugin",
+    "app.plugin.js"
   ],
   "scripts": {
     "lint": "eslint src/*",

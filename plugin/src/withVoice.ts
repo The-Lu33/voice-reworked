@@ -4,71 +4,59 @@ import {
   createRunOncePlugin,
   withInfoPlist,
 } from '@expo/config-plugins';
-
-const pkg = require('@react-native-voice/voice/package.json');
+import { ExpoConfig } from '@expo/config-types';
+import * as path from 'path'; // Importa el módulo 'path'
+const pkg = require(path.join(__dirname, '../../package.json')); // Construye la ruta al package.json
 
 const MICROPHONE = 'Allow $(PRODUCT_NAME) to access the microphone';
-
 const SPEECH_RECOGNITION =
   'Allow $(PRODUCT_NAME) to securely recognize user speech';
 
-export type Props = {
-  /**
-   * `NSSpeechRecognitionUsageDescription` message.
-   */
-  speechRecognitionPermission?: string | false;
-
-  /**
-   * `NSMicrophoneUsageDescription` message.
-   */
+type Props = {
   microphonePermission?: string | false;
+  speechRecognitionPermission?: string | false;
 };
 
-/**
- * Adds `NSMicrophoneUsageDescription` and `NSSpeechRecognitionUsageDescription` to the `Info.plist`.
- *
- * @param props.speechRecognitionPermission speech recognition message
- * @param props.microphonePermission microphone permission message
- * @returns
- */
-const withIosPermissions: ConfigPlugin<Props> = (
-  c,
-  { microphonePermission, speechRecognitionPermission } = {},
-) => {
-  return withInfoPlist(c, config => {
+const withIosPermissions: ConfigPlugin<Props> = (config, { microphonePermission, speechRecognitionPermission } = {}) => {
+  return withInfoPlist(config, (mod) => {
     if (microphonePermission !== false) {
-      config.modResults.NSMicrophoneUsageDescription =
+      mod.modResults.NSMicrophoneUsageDescription =
         microphonePermission ||
-        config.modResults.NSMicrophoneUsageDescription ||
+        mod.modResults.NSMicrophoneUsageDescription ||
         MICROPHONE;
     }
+
     if (speechRecognitionPermission !== false) {
-      config.modResults.NSSpeechRecognitionUsageDescription =
+      mod.modResults.NSSpeechRecognitionUsageDescription =
         speechRecognitionPermission ||
-        config.modResults.NSSpeechRecognitionUsageDescription ||
+        mod.modResults.NSSpeechRecognitionUsageDescription ||
         SPEECH_RECOGNITION;
     }
-
-    return config;
+    return mod;
   });
 };
 
-/**
- * Adds the following to the `AndroidManifest.xml`: `<uses-permission android:name="android.permission.RECORD_AUDIO" />`
- */
-const withAndroidPermissions: ConfigPlugin = config => {
+const withAndroidPermissions: ConfigPlugin = (config) => {
   return AndroidConfig.Permissions.withPermissions(config, [
     'android.permission.RECORD_AUDIO',
+    'android.permission.INTERNET', // Agregar si es necesario
   ]);
 };
 
-const withVoice: ConfigPlugin<Props | void> = (config, props = {}) => {
+const withVoiceReworked: ConfigPlugin<Props> = (config, props = {}) => {
   const _props = props ? props : {};
+  // Configuración iOS
   config = withIosPermissions(config, _props);
+  // Configuración Android solo si no está deshabilitado
   if (_props.microphonePermission !== false) {
     config = withAndroidPermissions(config);
   }
   return config;
 };
 
-export default createRunOncePlugin(withVoice, pkg.name, pkg.version);
+// Actualizar con el nombre de tu paquete
+export default createRunOncePlugin(
+  withVoiceReworked,
+  'react-native-voice-voice-reworked', // Nombre actualizado
+  pkg.version
+);

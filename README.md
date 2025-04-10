@@ -9,11 +9,11 @@
             alt="chat on Discord"></a>
 
 ```sh
-yarn add @react-native-voice/voice
+yarn add react-native-voice-voice-reworked
 
 # or
 
-npm i @react-native-voice/voice --save
+npm i react-native-voice-voice-reworked --save
 ```
 
 Link the iOS package
@@ -42,7 +42,7 @@ npx pod-install
 <p align="center">Manually or automatically link the NativeModule</p>
 
 ```sh
-react-native link @react-native-voice/voice
+react-native link react-native-voice-voice-reworked
 ```
 
 ### Manually Link Android
@@ -52,7 +52,7 @@ react-native link @react-native-voice/voice
 ```gradle
 ...
 include ':@react-native-voice_voice', ':app'
-project(':@react-native-voice_voice').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-voice/voice/android')
+project(':@react-native-voice_voice').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-voice-voice-reworked/android')
 ```
 
 - In `android/app/build.gradle`
@@ -90,7 +90,7 @@ public class MainActivity extends Activity implements ReactApplication {
 
 ### Manually Link iOS
 
-- Drag the Voice.xcodeproj from the @react-native-voice/voice/ios folder to the Libraries group on Xcode in your poject. [Manual linking](https://reactnative.dev/docs/linking-libraries-ios.html)
+- Drag the Voice.xcodeproj from the react-native-voice-voice-reworked/ios folder to the Libraries group on Xcode in your poject. [Manual linking](https://reactnative.dev/docs/linking-libraries-ios.html)
 
 - Click on your main project file (the one that represents the .xcodeproj) select Build Phases and drag the static library, lib.Voice.a, from the Libraries/Voice.xcodeproj/Products folder to Link Binary With Libraries
 
@@ -103,7 +103,7 @@ After installing this npm package, add the [config plugin](https://docs.expo.io/
 ```json
 {
   "expo": {
-    "plugins": ["@react-native-voice/voice"]
+    "plugins": ["react-native-voice-voice-reworked"]
   }
 }
 ```
@@ -123,7 +123,7 @@ The plugin provides props for extra customization. Every time you change the pro
 {
   "plugins": [
     [
-      "@react-native-voice/voice",
+      "react-native-voice-voice-reworked",
       {
         "microphonePermission": "CUSTOM: Allow $(PRODUCT_NAME) to access the microphone",
         "speechRecognitionPermission": "CUSTOM: Allow $(PRODUCT_NAME) to securely recognize user speech"
@@ -140,7 +140,7 @@ The plugin provides props for extra customization. Every time you change the pro
 ### Example
 
 ```javascript
-import Voice from '@react-native-voice/voice';
+import Voice from 'react-native-voice-voice-reworked';
 import React, {Component} from 'react';
 
 class VoiceTest extends Component {
@@ -243,8 +243,8 @@ Need to include permissions for `NSMicrophoneUsageDescription` and `NSSpeechReco
 
 Please see the documentation provided by ReactNative for this: [PermissionsAndroid](https://reactnative.dev/docs/permissionsandroid.html)
 
-[npm]: https://img.shields.io/npm/v/@react-native-voice/voice.svg?style=flat-square
-[npm-url]: https://npmjs.com/package/@react-native-voice/voice
+[npm]: https://img.shields.io/npm/v/react-native-voice-voice-reworked.svg?style=flat-square
+[npm-url]: https://npmjs.com/package/react-native-voice-voice-reworked
 [circle-ci-badge]: https://img.shields.io/circleci/project/github/react-native-voice/voice/master.svg?style=flat-square
 
 <h2 align="center">Contributors</h2>
